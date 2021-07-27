@@ -8,6 +8,15 @@ dotenv.config();
 //Add a Members
 export async function addMember(req, res) {
   try {
+    let theMember = await Members.findAll({
+      where: { email: req.body.email },
+    });
+    if (theMember.length == 0) {
+      return res.json({
+        success: false,
+        message: "Email exists!",
+      });
+    }
     bcrypt.hash(req.body.password, 10).then(async (hash) => {
       let memberObj = {
         email: req.body.email,

@@ -1,12 +1,28 @@
 import Borrows from "../models/borrows.js";
 import Books from "../models/books.js";
+import Members from "../models/member.js";
 
 //Add a book borrowing
 export async function addBorrowing(req, res) {
   try {
+    let theMember = await Members.findAll({
+      where: { memberid: req.body.memberid },
+    });
+    if (theMember.length == 0) {
+      return res.json({
+        success: false,
+        message: "Member not found!",
+      });
+    }
     let borrowBook = await Books.findAll({
       where: { bookid: req.body.titleid },
     });
+    if (borrowBook.length == 0) {
+      return res.json({
+        success: false,
+        message: "Book not found!",
+      });
+    }
     let copies = borrowBook[0].copies;
     let titleBook = borrowBook[0].title;
     let updatedCopies = copies - 1;
@@ -101,7 +117,7 @@ export async function viewAllBorrowings(req, res) {
   }
 }
 
-//Update borrowing record
+//Return borrowing record
 export async function returnBook(req, res) {
   try {
     let BorrowRecord = await Borrows.findAll({
@@ -148,10 +164,11 @@ export async function returnBook(req, res) {
 
 export async function viewMemberBorrowings(req, res) {
   try {
+    console.log("ID -> ", req.params.memberid);
     let memberBorrowings = await Borrows.findAll({
       where: { memberid: req.params.memberid },
     });
-    if (memberBorrowings) {
+    if (memberBorrowings.length > 0) {
       res.json({
         success: true,
         message: "Borrowing records retrieved successfully",
@@ -159,7 +176,7 @@ export async function viewMemberBorrowings(req, res) {
       });
     } else {
       res.json({
-        success: true,
+        success: false,
         message: "No Borrowing records found.",
       });
     }
