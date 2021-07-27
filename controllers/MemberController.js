@@ -163,7 +163,7 @@ export async function deleteMember(req, res) {
       where: { memberid: req.params.id },
     });
     if (memberToDelete) {
-      let deletedMember = await Member.destroy({
+      let deletedMember = await Members.destroy({
         where: { memberid: req.params.id },
       });
       if (deletedMember) {
