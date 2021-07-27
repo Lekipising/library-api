@@ -1,5 +1,4 @@
 import express from "express";
-import { addAdmin, viewAdmin, viewAllAdmins, signIn } from '../controllers/AdminController.js';
 import { addBook, viewBook, viewAllBooks, deleteBook, updateBook } from '../controllers/BooksController.js';
 import { addBorrowing, viewBorrowing, viewAllBorrowings, returnBook, viewMemberBorrowings } from '../controllers/BorrowController.js';
 import { addMember, signinMember, viewMember, viewAllMembers, updateMember, deleteMember } from '../controllers/MemberController.js';
@@ -32,16 +31,6 @@ borrowsRouter.get("/:id", viewBorrowing)
 borrowsRouter.get("/", viewAllBorrowings)
 // view all borrows of a member
 borrowsRouter.get("/:memberid", viewMemberBorrowings)
-
-// admins
-// signup
-adminsRouter.post("/signup", addAdmin)
-// signin
-adminsRouter.post("/signin", signIn)
-// view one
-adminsRouter.get("/:id", viewAdmin)
-// view all
-adminsRouter.get("/", viewAllAdmins)
 
 // members
 // signup
