@@ -24,6 +24,10 @@ const Borrows = sequelize.define('borrows', {
         key: 'bookid'
       }
     },
+    title: {
+      type: Sequelize.STRING(255),
+      allowNull: false,
+    },
     returndate: {
       type: Sequelize.DATE,
       allowNull: false,

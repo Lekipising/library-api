@@ -75,6 +75,32 @@ export async function viewAllBooks(req, res) {
   }
 }
 
+export async function updateBook(req, res) {
+  try {
+    let updatedBook = await Books.update(req.body, {
+      where: { bookid: req.params.id },
+    });
+    if (updatedBook) {
+      res.json({
+        success: true,
+        message: "Book records updated successfully",
+        data: updatedBook,
+      });
+    } else {
+      res.json({
+        success: true,
+        message: "No Book records found.",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Oopss! Something is wrong...",
+    });
+  }
+}
+
 //Delete a book
 export async function deleteBook(req, res) {
   try {
@@ -82,7 +108,9 @@ export async function deleteBook(req, res) {
       where: { bookid: req.params.id },
     });
     if (bookToDelete) {
-      let deletedBook = await Books.destroy({ where: { bookid: req.params.id } });
+      let deletedBook = await Books.destroy({
+        where: { bookid: req.params.id },
+      });
       if (deletedBook) {
         res.json({
           success: true,
