@@ -164,9 +164,8 @@ export async function returnBook(req, res) {
 
 export async function viewMemberBorrowings(req, res) {
   try {
-    console.log("ID -> ", req.params.memberid);
     let memberBorrowings = await Borrows.findAll({
-      where: { memberid: req.params.memberid },
+      where: { memberid: req.params.id },
     });
     if (memberBorrowings.length > 0) {
       res.json({

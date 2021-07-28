@@ -30,7 +30,7 @@ borrowsRouter.get("/:id", viewBorrowing)
 // view all borrows
 borrowsRouter.get("/", viewAllBorrowings)
 // view all borrows of a member
-borrowsRouter.get("/:memberid", viewMemberBorrowings)
+borrowsRouter.get("/member/:id", viewMemberBorrowings)
 
 // members
 // signup
